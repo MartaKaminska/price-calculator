@@ -1,9 +1,9 @@
-import React from 'react';
+import PriceList from "./components/table";
 
 function App() {
   return (
     <div>
-     
+      <PriceList />
     </div>
   );
 }

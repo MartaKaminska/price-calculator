@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { products } from "../data/products";
-import databaseSlice from "./reducers/reducer";
+import { servicesReducer, addService } from "./reducers/servicesSlice";
+import { yearsReducers, addYear } from "./reducers/yearsSlice";
 
-interface RootState {
-    products: Products[];
-  }
-const initialState: RootState = { products };
-
-export const store = configureStore({
-  reducer: databaseSlice.reducer,
-  preloadedState: initialState as any,
+const store = configureStore({
+  reducer: {
+    services: servicesReducer,
+    years: yearsReducers,
+  },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export { store, addService, addYear };
