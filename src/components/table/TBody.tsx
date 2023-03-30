@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
+import { nanoid } from "@reduxjs/toolkit";
 import { TableBody } from "@mui/material";
-import { v4 as uuidv4 } from "uuid";
 
 import { RootState } from "../../store/store";
 import { StyledTableCell, StyledTableRow } from "../../style";
@@ -11,12 +11,12 @@ const TBody = () => {
   return (
     <TableBody>
       {productsList.map((row) => (
-        <StyledTableRow key={uuidv4()}>
+        <StyledTableRow key={row.id}>
           <StyledTableCell component="th" scope="row">
             {row.name}
           </StyledTableCell>
           {row.price.map((price) => (
-            <StyledTableCell key={uuidv4()} align="right">
+            <StyledTableCell key={nanoid()} align="right">
               {price}
             </StyledTableCell>
           ))}

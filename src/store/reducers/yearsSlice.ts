@@ -5,7 +5,9 @@ const yearsSlice = createSlice({
   name: "years",
   initialState: years,
   reducers: {
-    addYear: (state, action) => {},
+    addYear: (state, action) => {
+      state.push(action.payload.year);
+    },
   },
 });
 
