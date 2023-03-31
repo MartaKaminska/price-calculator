@@ -1,19 +1,19 @@
 import { nanoid } from "@reduxjs/toolkit";
 
 export const services: Services[] = [
-  { id: nanoid(), name: "Internet", price: [39, 49, 59] },
   { id: nanoid(), name: "Telewizja", price: [49, 49, 59] },
-  {
-    id: nanoid(),
-    name: "Abonament telefoniczny",
-    price: [29, 29, 29],
-  },
   { id: nanoid(), name: "Dekoder 4K", price: [29, 29, 29] },
   { id: nanoid(), name: "Internet + telewizja", price: [79, 89, 99] },
   {
     id: nanoid(),
     name: "Internet + Abonament telefoniczny",
     price: [64, 64, 64],
+  },
+  { id: nanoid(), name: "Internet", price: [39, 49, 59] },
+  {
+    id: nanoid(),
+    name: "Abonament telefoniczny",
+    price: [29, 29, 29],
   },
 ];
 

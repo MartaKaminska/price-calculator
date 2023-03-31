@@ -1,16 +1,22 @@
 import { Stack } from "@mui/material";
-import { AddProductButton } from "./components/buttons/AddProductButton";
-import { AddYeatButton } from "./components/buttons/AddYearButton";
-import PriceList from "./components/table";
+import {
+  AddProductButton,
+  AddYearButton,
+  Offer,
+  PriceList,
+} from "./components";
+import { Calculator } from "./components/calculator";
 
 function App() {
   return (
     <div>
       <Stack direction="row" spacing={2}>
         <PriceList />
-        <AddYeatButton />
+        <AddYearButton />
       </Stack>
       <AddProductButton />
+      <Offer />
+      <Calculator />
     </div>
   );
 }

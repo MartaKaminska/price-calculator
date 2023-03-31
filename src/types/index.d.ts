@@ -4,7 +4,7 @@ interface Services {
   price: number[];
 }
 
-interface PriceState {
-  price: string;
-  hasPrice: boolean;
+interface DialogProps {
+  isOpen: boolean;
+  handleClose: () => void;
 }

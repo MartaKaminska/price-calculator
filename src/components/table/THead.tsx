@@ -11,7 +11,7 @@ const THead = () => {
   return (
     <TableHead>
       <TableRow>
-        <StyledTableCell>PRODUKTY</StyledTableCell>
+        <StyledTableCell>CENNIK</StyledTableCell>
         {years.map((year) => (
           <StyledTableCell key={nanoid()} align="right">
             {year}

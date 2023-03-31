@@ -1,12 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { services } from "../../data/data";
-import { addYear } from "./yearsSlice";
+import { createSlice, nanoid} from "@reduxjs/toolkit";
+import { services } from "../../data";
+import { addYear } from "../store";
 
 const servicesSlice = createSlice({
   name: "services",
   initialState: services,
   reducers: {
-    addService: (state, action) => {},
+    addService: (state, action) => {
+      state.push({
+        id: nanoid(),
+        name: action.payload.product,
+        price: action.payload.prices,
+      });
+    },
   },
   extraReducers(builder) {
     builder.addCase(addYear, (state, action) => {

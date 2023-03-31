@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { years } from "../../data/data";
+import { years } from "../../data";
 
 const yearsSlice = createSlice({
   name: "years",
