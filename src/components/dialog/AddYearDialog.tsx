@@ -24,7 +24,7 @@ export const AddYeatDialog = ({ isOpen, handleClose }: DialogProps) => {
   const [year, setYear] = useState<string>(
     years.length ? `${+years[years.length - 1] + 1}` : ""
   );
-  const [prices, setPrices] = useState<string[]>(
+  const [prices, setPrices] = useState(
     Array(productsList.length).fill("")
   );
 
@@ -66,7 +66,7 @@ export const AddYeatDialog = ({ isOpen, handleClose }: DialogProps) => {
                 value={prices[index]}
                 onChange={(event) => {
                   const newPrices = [...prices];
-                  newPrices[index] = event.target.value;
+                  newPrices[index] = +event.target.value;
                   setPrices(newPrices);
                 }}
               />

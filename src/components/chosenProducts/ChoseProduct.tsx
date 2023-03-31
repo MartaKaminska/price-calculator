@@ -15,6 +15,9 @@ export const ChoseProduct = () => {
   const productsList = useSelector((state: RootState) => state.services).slice(
     4
   );
+  const chosenYear: string = useSelector(
+    (state: RootState) => state.chosenYear
+  );
   const [state, setState] = useState({
     tv: false,
     decoder: false,
@@ -66,12 +69,20 @@ export const ChoseProduct = () => {
       <FormLabel component="legend">Wynierz produkt z listy:</FormLabel>
       <FormGroup>
         <FormControlLabel
-          control={<Checkbox checked={tv} onChange={handleChange} name="tv" />}
+          control={
+            <Checkbox
+              disabled={chosenYear ? false : true}
+              checked={tv}
+              onChange={handleChange}
+              name="tv"
+            />
+          }
           label="Telewizja"
         />
         <FormControlLabel
           control={
             <Checkbox
+              disabled={chosenYear ? false : true}
               checked={decoder}
               onChange={handleChange}
               name="decoder"
@@ -84,6 +95,7 @@ export const ChoseProduct = () => {
             key={product.id}
             control={
               <Checkbox
+                disabled={chosenYear ? false : true}
                 checked={state.addedProducts[product.name] || false}
                 onChange={handleChange}
                 name={product.name}

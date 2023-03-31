@@ -9,7 +9,7 @@ import { Calculator } from "./components/calculator";
 
 function App() {
   return (
-    <div>
+    <div style = {{margin: "50px"}}>
       <Stack direction="row" spacing={2}>
         <PriceList />
         <AddYearButton />

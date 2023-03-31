@@ -9,7 +9,7 @@ export const AddYearButton = () => {
 
   return (
     <div>
-      <Button variant="text" onClick={() => setOpen(true)}>
+      <Button variant="outlined" onClick={() => setOpen(true)}>
         dodaj kolejny rok
       </Button>
       <AddYeatDialog isOpen={open} handleClose={handleClose} />
