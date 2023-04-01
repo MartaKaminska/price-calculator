@@ -1,5 +1,7 @@
+import { otherCost } from "./outOfPackage";
+
 export const findBestPackage = (
-  chosenElements: string[],
+  chosenProduct: string[],
   productsList: Services[],
   yearIndex: number
 ) => {
@@ -10,20 +12,25 @@ export const findBestPackage = (
 
   productsList.map((product: Services) => {
     if (product.name.includes("+")) {
-      const isInOfert = product.name
-        .split(" + ")
-        .every((elem) => chosenElements.includes(elem));
+      const packageElements: string[] = product.name.split(" + ");
+      const isInOfert = packageElements.every((elem) =>
+        chosenProduct.includes(elem)
+      );
+
       if (isInOfert) {
+        const totalCost =
+          product.price[yearIndex] +
+          otherCost(productsList, chosenProduct, packageElements, yearIndex);
         if (
-          bestPackage.price === undefined ||
-          product.price[yearIndex] < bestPackage.price
+          (bestPackage.price && totalCost < bestPackage.price) ||
+          bestPackage.price === undefined
         ) {
-          bestPackage.price = product.price[yearIndex];
+          bestPackage.price = totalCost;
           bestPackage.elements = product.name.split(" + ");
         }
       }
     }
   });
-  
+
   return bestPackage;
 };

@@ -44,11 +44,11 @@ export const ChoseProduct = () => {
       setState({
         ...state,
         decoder: checked,
-        tv: true,
+        tv: state.tv ? true : checked,
         addedProducts: {
           ...state.addedProducts,
           decoder: checked,
-          tv: true,
+          tv: state.tv ? true : checked,
         },
       });
     } else {

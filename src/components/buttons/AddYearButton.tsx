@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@mui/material";
 
-import { AddYeatDialog } from "../dialog/AddYearDialog";
+import { AddYearDialog } from "../dialog/AddYearDialog";
 
 export const AddYearButton = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -12,7 +12,7 @@ export const AddYearButton = () => {
       <Button variant="outlined" onClick={() => setOpen(true)}>
         dodaj kolejny rok
       </Button>
-      <AddYeatDialog isOpen={open} handleClose={handleClose} />
+      <AddYearDialog isOpen={open} handleClose={handleClose} />
     </div>
   );
 };

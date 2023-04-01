@@ -14,27 +14,37 @@ import {
 
 import { addYear, RootState } from "../../store/store";
 
-export const AddYeatDialog = ({ isOpen, handleClose }: DialogProps) => {
+export const AddYearDialog = ({ isOpen, handleClose }: DialogProps) => {
   const dispatch = useDispatch();
   const years: string[] = useSelector((state: RootState) => state.years);
   const productsList: Services[] = useSelector(
     (state: RootState) => state.services
   );
   const [open, setOpen] = useState<boolean>(false);
-  const [year, setYear] = useState<number>(
-    years.length ? (+years[years.length - 1] + 1) : 0
+  const [year, setYear] = useState<string>(`${+years[years.length - 1] + 1}`);
+  const [prices, setPrices] = useState<number[]>(
+    Array(productsList.length).fill("")
   );
-  const [prices, setPrices] = useState(Array(productsList.length).fill(""));
 
-  useEffect(() => setOpen(isOpen), [isOpen]);
+  const handlePrice = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    index: number
+  ) => {
+    const newPrices = [...prices];
+    newPrices[index] = +event.target.value;
+    setPrices(newPrices);
+  };
+
   const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
     dispatch(addYear({ year, prices }));
-    setYear(year + 1);
+    setYear(`${+year + 1}`);
+
     setPrices([]);
     handleClose();
   };
+  useEffect(() => setOpen(isOpen), [isOpen]);
 
   return (
     <Dialog open={open} onSubmit={handleSubmit}>
@@ -50,8 +60,8 @@ export const AddYeatDialog = ({ isOpen, handleClose }: DialogProps) => {
             <Input
               id="component-simple"
               type="number"
-              value={year === undefined ? "" : year}
-              onChange={(event) => setYear(+event?.target.value)}
+              value={year}
+              onChange={(event) => setYear(event?.target.value)}
             />
           </FormControl>
           {productsList.map((product, index) => (
@@ -61,11 +71,7 @@ export const AddYeatDialog = ({ isOpen, handleClose }: DialogProps) => {
                 id="component-simple"
                 type="number"
                 value={prices[index]}
-                onChange={(event) => {
-                  const newPrices = [...prices];
-                  newPrices[index] = +event.target.value;
-                  setPrices(newPrices);
-                }}
+                onChange={(event) => handlePrice(event, index)}
               />
             </FormControl>
           ))}

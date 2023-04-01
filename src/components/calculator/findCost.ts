@@ -1,5 +1,6 @@
 import { findBestPackage } from "./findBestPackage";
 import { getSpecialOffertPrice } from "./getSpecialOffertPrice";
+import { otherCost } from "./outOfPackage";
 
 export const findCost = (
   chosenProduct: string[],
@@ -11,28 +12,20 @@ export const findCost = (
     productsList,
     yearIndex
   );
-  const otherProducts = chosenProduct.filter(
-    (product) => bestPackage.elements.indexOf(product) === -1
-  );
 
   const productsListWithoutPackage = productsList.filter(
     (product: Services) => !product.name.includes("+")
   );
 
-  const otherCost: number = productsListWithoutPackage.reduce(
-    (acc: number, cur: any) => {
-      if (otherProducts.includes(cur.name)) {
-        return acc + cur.price[yearIndex];
-      }
-      return acc;
-    },
-    0
-  );
-
   const cost: number =
-    otherCost +
-    (bestPackage.price || 0) -
-    getSpecialOffertPrice(chosenProduct, productsList, yearIndex);
+    (bestPackage.price
+      ? bestPackage.price
+      : otherCost(
+          productsListWithoutPackage,
+          chosenProduct,
+          bestPackage.elements,
+          yearIndex
+        )) - getSpecialOffertPrice(chosenProduct, productsList, yearIndex);
 
   return cost;
 };
