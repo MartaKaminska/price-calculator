@@ -10,7 +10,7 @@ const servicesSlice = createSlice({
       state.push({
         id: nanoid(),
         name: action.payload.product,
-        price: action.payload.prices,
+        price: action.payload.productPrices,
       });
     },
   },

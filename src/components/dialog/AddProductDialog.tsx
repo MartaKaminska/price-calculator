@@ -6,6 +6,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
+  DialogContentText,
   DialogTitle,
   FormControl,
   Input,
@@ -19,17 +20,21 @@ export const AddProductDialog = ({ isOpen, handleClose }: DialogProps) => {
   const years: string[] = useSelector((state: RootState) => state.years);
   const [open, setOpen] = useState<boolean>(false);
   const [product, setProduct] = useState<string>("");
-  const [prices, setPrices] = useState<string[]>(new Array(years.length).fill(""));
+  const [prices, setPrices] = useState<string[]>(
+    new Array(years.length).fill("")
+  );
 
   useEffect(() => setOpen(isOpen), [isOpen]);
   const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
-    dispatch(addService({ product, prices }));
+    const productPrices: number[] = prices.map((product: string) => +product);
+    dispatch(addService({ product, productPrices }));
     setProduct("");
     setPrices(new Array(years.length).fill(""));
     handleClose();
   };
+  
   return (
     <Dialog open={open} onSubmit={handleSubmit}>
       <form>
@@ -37,6 +42,10 @@ export const AddProductDialog = ({ isOpen, handleClose }: DialogProps) => {
           Dodaj kolejny produkt i jego cenę w podanych latach
         </DialogTitle>
         <DialogContent style={{ display: "flex", flexDirection: "column" }}>
+        <DialogContentText >
+          Jeżeli chcesz dodać pakietu to zastosuj znacznik "+" i użyj nazw
+          istniejących pakietów np. Telewizja + Abonament telefoniczny
+        </DialogContentText>
           <FormControl style={{ marginTop: "20px" }}>
             <InputLabel htmlFor="component-simple" required={true}>
               produkt

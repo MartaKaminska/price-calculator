@@ -9,11 +9,14 @@ import {
 } from "@mui/material";
 
 import { addChosenProduct, RootState } from "../../store/store";
+import { relatedProducts } from "../../data";
+import { chosenProducts } from "./chosenProducts";
 
 export const ChoseProduct = () => {
   const dispatch = useDispatch();
-  const productsList = useSelector((state: RootState) => state.services).slice(
-    4
+  const productsList = useSelector((state: RootState) => state.services).filter(
+    (product: Services) =>
+      !product.name.includes("+") && !relatedProducts.includes(product.name)
   );
   const chosenYear: string = useSelector(
     (state: RootState) => state.chosenYear
@@ -29,15 +32,11 @@ export const ChoseProduct = () => {
   });
   const { tv, decoder } = state;
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const chosenProducts = () =>
-    Object.entries(state.addedProducts)
-      .filter(([, value]) => value === true)
-      .map(([key]) => key);
-
   useEffect(() => {
-    dispatch(addChosenProduct({ products: chosenProducts() }));
-  }, [state.addedProducts, dispatch, chosenProducts]);
+    dispatch(
+      addChosenProduct({ products: chosenProducts(state.addedProducts) })
+    );
+  }, [state.addedProducts, dispatch]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = event.target;

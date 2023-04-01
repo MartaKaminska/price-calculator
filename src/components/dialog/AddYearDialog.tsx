@@ -21,20 +21,17 @@ export const AddYeatDialog = ({ isOpen, handleClose }: DialogProps) => {
     (state: RootState) => state.services
   );
   const [open, setOpen] = useState<boolean>(false);
-  const [year, setYear] = useState<string>(
-    years.length ? `${+years[years.length - 1] + 1}` : ""
+  const [year, setYear] = useState<number>(
+    years.length ? (+years[years.length - 1] + 1) : 0
   );
-  const [prices, setPrices] = useState(
-    Array(productsList.length).fill("")
-  );
+  const [prices, setPrices] = useState(Array(productsList.length).fill(""));
 
   useEffect(() => setOpen(isOpen), [isOpen]);
   const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
     dispatch(addYear({ year, prices }));
-    const yearsArr = years.filter(Boolean);
-    setYear(`${+yearsArr[yearsArr.length - 1] + 1}`);
+    setYear(year + 1);
     setPrices([]);
     handleClose();
   };
@@ -48,13 +45,13 @@ export const AddYeatDialog = ({ isOpen, handleClose }: DialogProps) => {
         <DialogContent style={{ display: "flex", flexDirection: "column" }}>
           <FormControl style={{ marginTop: "20px" }}>
             <InputLabel htmlFor="component-simple" required={true}>
-              rok
+              Rok
             </InputLabel>
             <Input
               id="component-simple"
               type="number"
               value={year === undefined ? "" : year}
-              onChange={(event) => setYear(event?.target.value)}
+              onChange={(event) => setYear(+event?.target.value)}
             />
           </FormControl>
           {productsList.map((product, index) => (
